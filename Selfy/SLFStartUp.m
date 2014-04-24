@@ -8,15 +8,20 @@
 
 #import "SLFStartUp.h"
 
+#import "SLFTableViewController.h"
+
+#import "SLFPhoto.h"
+
 #import <Parse/Parse.h>
 
-@interface SLFStartUp ()
+@interface SLFStartUp () <UITextFieldDelegate>
 
 @end
 
 @implementation SLFStartUp
 
 {
+    UIView * buttonSpace;
     UITextField * userName;
     UITextField * password;
     UIButton * submit;
@@ -27,20 +32,35 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self)
     {
+        buttonSpace = [[UIView alloc]initWithFrame: self.view.frame];
+        [self.view addSubview:buttonSpace];
+        
+        [self.navigationController setNavigationBarHidden:YES];
+        
+//        [self.navigationController.navigationBar removeFromSuperview];
+        
         userName = [[UITextField alloc]initWithFrame:CGRectMake(50, 120, SCREEN_WIDTH - 100, 40)];
         userName.backgroundColor = [UIColor lightGrayColor];
-        [self.view addSubview:userName];
+        [buttonSpace addSubview:userName];
+        userName.delegate = self;
         
-        password = [[UITextField alloc]initWithFrame:CGRectMake(50, 200, SCREEN_WIDTH - 100, 40)];
+        password = [[UITextField alloc]initWithFrame:CGRectMake(50, 180, SCREEN_WIDTH - 100, 40)];
         password.backgroundColor = [UIColor lightGrayColor];
         password.secureTextEntry = YES;
-        [self.view addSubview:password];
+        [buttonSpace addSubview:password];
+        password.delegate = self;
         
-        submit = [[UIButton alloc]initWithFrame:CGRectMake(50, 280, SCREEN_WIDTH - 100, 80)];
+        submit = [[UIButton alloc]initWithFrame:CGRectMake(50, 240, SCREEN_WIDTH - 100, 80)];
         [submit addTarget:self action:@selector(logIn) forControlEvents:UIControlEventTouchUpInside];
         submit.backgroundColor = [UIColor redColor];
         submit.layer.cornerRadius = 40;
-        [self.view addSubview:submit];
+        [buttonSpace addSubview:submit];
+        
+        UILabel * title = [[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/3, 5, SCREEN_WIDTH/3, 20)];
+        title.textAlignment = NSTextAlignmentCenter;
+        title.text = @"Selfy";
+        [self.navigationController.navigationBar addSubview:title];
+        
     }
     return self;
 }
@@ -70,6 +90,21 @@
     
     [user saveInBackground];
     }
+    
+    UITableViewController * pastPhotos = [[SLFTableViewController alloc]init];
+    
+    [self.navigationController pushViewController:pastPhotos animated:YES];
+}
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    [UIView animateWithDuration:0.2 animations:^{
+        buttonSpace.frame = CGRectMake(0, -60, SCREEN_WIDTH, self.view.frame.size.height);
+
+    }];
+}
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self.navigationController setNavigationBarHidden:YES];
 }
 
 /*
@@ -82,5 +117,6 @@
     // Pass the selected object to the new view controller.
 }
 */
+
 
 @end

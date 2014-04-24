@@ -8,6 +8,7 @@
 
 #import "SLFAppDelegate.h"
 
+
 #import "SLFTableViewController.h"
 
 #import "SLFStartUp.h"
@@ -17,6 +18,8 @@
 #import <Parse/Parse.h>
 
 @implementation SLFAppDelegate
+{
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -27,9 +30,16 @@
     
     [PFUser enableAutomaticUser];
     
+    SLFStartUp * rootViewController = [[SLFStartUp alloc] initWithNibName:nil bundle:nil];
+    
+    UINavigationController * navController = [[UINavigationController alloc]initWithRootViewController:rootViewController];
+    
+    self.window.rootViewController = navController;
+    
 //    self.window.rootViewController = [[SLFTableViewController alloc] initWithStyle:UITableViewStylePlain];
     
 //    self.window.rootViewController = [[SLFStartUp alloc] initWithNibName:nil bundle:nil];
+//    navigator = [[UINavigationController alloc] init];
     
 //    self.window.rootViewController = [[SLFPhoto alloc] initWithNibName:nil bundle:nil];
     

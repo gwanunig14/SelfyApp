@@ -10,6 +10,8 @@
 
 #import "SLFTableViewCell.h"
 
+#import "SLFPhoto.h"
+
 #import <Parse/Parse.h>
 
 @interface SLFTableViewController ()
@@ -38,6 +40,13 @@
         title.textAlignment = NSTextAlignmentCenter;
         title.text = @"Selfy";
         [header addSubview:title];
+        
+        UIBarButtonItem *camera = [[UIBarButtonItem alloc]
+                                       initWithTitle:@"camera"
+                                       style:UIBarButtonItemStyleBordered
+                                       target:self
+                                       action:@selector(takePicture)];
+        self.navigationItem.rightBarButtonItem = camera;
         
         settings = [[UIButton alloc]initWithFrame:CGRectMake(5, 5, 30, 30)];
         settings.layer.cornerRadius = 15;
@@ -101,6 +110,12 @@
     return [allPictures count];
 }
 
+-(void) takePicture
+{
+    SLFPhoto * newPhoto = [[SLFPhoto alloc]init];
+    [self.navigationController pushViewController:newPhoto animated:YES];
+}
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -132,6 +147,11 @@
                                 }
                       atIndex:1];
     [self.tableView reloadData];
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self.navigationController setNavigationBarHidden:NO];
 }
 
 /*

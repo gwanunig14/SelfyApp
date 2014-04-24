@@ -586,6 +586,7 @@
 				9CA709D2190588550024E474 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9CA709D3190588550024E474 /* Build configuration list for PBXNativeTarget "SelfyTests" */ = {
 			isa = XCConfigurationList;
@@ -594,6 +595,7 @@
 				9CA709D5190588550024E474 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
