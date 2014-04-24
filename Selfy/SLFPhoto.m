@@ -127,6 +127,11 @@
     }];
 }
 
+-(void)newSelfy
+//PFObject class name "userselfy"
+//put a png file inside the app
+//PFFile
+
 /*
 #pragma mark - Navigation
 

@@ -22,10 +22,30 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    [Parse setApplicationId:@"H1JHLiA7kFRmIWvtbkHDcnA1Caj4UofHxRx6UZAB"
-                  clientKey:@"dKLyXccYHUy1MXNgrdR2Sq5b1fNQoTr4clSXVd3p"];
+//    [Parse setApplicationId:@"H1JHLiA7kFRmIWvtbkHDcnA1Caj4UofHxRx6UZAB"
+//                  clientKey:@"dKLyXccYHUy1MXNgrdR2Sq5b1fNQoTr4clSXVd3p"];
+    
+    //my app key
+    [Parse setApplicationId:@"3pRyf1ZJCSsHrvxnXJ2ByqFoosleRgNuZkymyGPd"
+                  clientKey:@"cP84RvksuZhKaL6d4Na4QmETtMGThMAVaWOlDk70"];
     
     [PFUser enableAutomaticUser];
+    
+    UINavigationController * navController;
+    
+    PFUser * user = [PFUser currentUser];
+    
+    NSString * username = user.username;
+    
+    username = nil;
+    
+    if (username == nil) {
+        navController = [[UINavigationController alloc]initWithRootViewController:[[SLFStartUp alloc]initWithNibName:nil bundle:nil]];
+        navController.navigationBarHidden = YES;
+    }else{
+        navController = [[UINavigationController alloc]initWithRootViewController:[[SLFTableViewController alloc]initWithStyle:UITableViewStylePlain]];
+    }
+    self.window.rootViewController = navController;
     
 //    self.window.rootViewController = [[SLFTableViewController alloc] initWithStyle:UITableViewStylePlain];
     

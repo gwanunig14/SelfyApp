@@ -10,6 +10,8 @@
 
 #import <Parse/Parse.h>
 
+#import "SLFTableViewController.h"
+
 @interface SLFStartUp ()
 
 @end
@@ -27,19 +29,19 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self)
     {
-        userName = [[UITextField alloc]initWithFrame:CGRectMake(50, 120, SCREEN_WIDTH - 100, 40)];
+        userName = [[UITextField alloc]initWithFrame:CGRectMake(50, 120, SCREEN_WIDTH - 100, 20)];
         userName.backgroundColor = [UIColor lightGrayColor];
         [self.view addSubview:userName];
         
-        password = [[UITextField alloc]initWithFrame:CGRectMake(50, 200, SCREEN_WIDTH - 100, 40)];
+        password = [[UITextField alloc]initWithFrame:CGRectMake(50, 150, SCREEN_WIDTH - 100, 20)];
         password.backgroundColor = [UIColor lightGrayColor];
         password.secureTextEntry = YES;
         [self.view addSubview:password];
         
-        submit = [[UIButton alloc]initWithFrame:CGRectMake(50, 280, SCREEN_WIDTH - 100, 80)];
+        submit = [[UIButton alloc]initWithFrame:CGRectMake(50, 180, SCREEN_WIDTH - 100, 40)];
         [submit addTarget:self action:@selector(logIn) forControlEvents:UIControlEventTouchUpInside];
         submit.backgroundColor = [UIColor redColor];
-        submit.layer.cornerRadius = 40;
+        submit.layer.cornerRadius = 20;
         [self.view addSubview:submit];
     }
     return self;
@@ -62,14 +64,31 @@
     NSString * uName = userName.text;
     NSString * pWord = password.text;
     
-    if(![uName isEqualToString:@""])
-    {
     PFUser * user = [PFUser currentUser];
     user.username = uName;
     user.password = pWord;
+        
+    userName.text = nil;
+    password.text = nil;
     
-    [user saveInBackground];
-    }
+    //uiactivityindicatorview
+    //start...
+    //addsubview
+    
+    [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+    {
+        if (error == nil)
+        {
+            self.navigationController.navigationBarHidden = NO;
+            self.navigationController.viewControllers = @[[[SLFTableViewController alloc]initWithStyle:UITableViewStylePlain]];
+        } else {
+//            error.userInfo[@"error"];
+            UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:@"NO! WRONG!" message:@"Unauthorized User" delegate:self cancelButtonTitle:@"Try Something Else" otherButtonTitles: nil];
+            
+            [alertview show];
+            //remove indicator
+        }
+    }];
 }
 
 /*
