@@ -27,26 +27,18 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self)
-    {
+    {   
         self.view.backgroundColor = [UIColor whiteColor];
         
-        newForm = [[UIView alloc]initWithFrame:self.view.frame];
+        float barHeight =  self.navigationController.navigationBar.frame.size.height;
+        
+        newForm = [[UIView alloc]initWithFrame:CGRectMake(0, 0-barHeight, SCREEN_WIDTH, SCREEN_HEIGHT)];
         [self.view addSubview:newForm];
         
         UILabel * title = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/3, 5, SCREEN_WIDTH/3,20)];
         title.text = @"Selfy";
         title.textAlignment = NSTextAlignmentCenter;
         title.textColor = CYAN_COLOR;
-        
-//        UIView * header = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 30)];
-//        header.backgroundColor = MAGENTA_COLOR;
-//        [newForm addSubview:header];
-        
-        cancel = [[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH-25, 5, 20, 20)];
-        cancel.backgroundColor = PURPLE_COLOR;
-        cancel.layer.cornerRadius = 5;
-//        [header addSubview:cancel];
-//        [header addSubview:title];
         
         newPicture = [[UIImageView alloc]initWithFrame:CGRectMake(20, 50, SCREEN_WIDTH-40, SCREEN_WIDTH-80)];
         [newPicture setContentMode:UIViewContentModeScaleAspectFit];
@@ -152,6 +144,7 @@
 {
     
 }
+
 //PFObject class name "userselfy"
 //put a png file inside the app
 //PFFile
