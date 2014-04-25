@@ -114,10 +114,18 @@
 {
     NSLog(@"writing");
     
-    PFObject *testObject = [PFObject objectWithClassName:@"UserSelfy"];
-    testObject[@"image"] = @"image.png";
-    testObject[@"caption"] = newCaption.text;
-    [testObject saveInBackground];
+    UIImage * image = [UIImage imageNamed:@"sunset.png"];
+    NSData * imageData = UIImagePNGRepresentation(image);
+    PFFile * imageFile = [PFFile fileWithName:@"It worked" data:imageData];
+    PFObject * newSelfy = [PFObject objectWithClassName:@"UserSelfy"];
+    newSelfy[@"caption"]=newCaption.text;
+    newSelfy[@"image"]=imageFile;
+    [newSelfy saveInBackground];
+    
+//    PFObject *testObject = [PFObject objectWithClassName:@"UserSelfy"];
+//    testObject[@"image"] = @"image.png";
+//    testObject[@"caption"] = newCaption.text;
+//    [testObject saveInBackground];
 }
 
 -(void)textViewDidBeginEditing:(UITextView *)textView
@@ -128,6 +136,9 @@
 }
 
 -(void)newSelfy
+{
+    
+}
 //PFObject class name "userselfy"
 //put a png file inside the app
 //PFFile

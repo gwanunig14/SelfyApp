@@ -38,19 +38,19 @@
         title.textAlignment = NSTextAlignmentCenter;
         title.text = @"Selfy";
         [header addSubview:title];
+//        
+//        settings = [[UIButton alloc]initWithFrame:CGRectMake(5, 5, 30, 30)];
+//        settings.layer.cornerRadius = 15;
+//        settings.backgroundColor = [UIColor redColor];
+//        [header addSubview:settings];
         
-        settings = [[UIButton alloc]initWithFrame:CGRectMake(5, 5, 30, 30)];
-        settings.layer.cornerRadius = 15;
-        settings.backgroundColor = [UIColor redColor];
-        [header addSubview:settings];
-        
-        newUser = [[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH-35, 5, 30, 30)];
-        newUser.layer.cornerRadius = 15;
-        newUser.backgroundColor = [UIColor redColor];
-        [newUser setTitle:@"New" forState:UIControlStateNormal];
-        [newUser addTarget:self action:@selector(createCell) forControlEvents:UIControlEventTouchUpInside];
-        newUser.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:8];
-        [header addSubview:newUser];
+//        newUser = [[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH-35, 5, 30, 30)];
+//        newUser.layer.cornerRadius = 15;
+//        newUser.backgroundColor = [UIColor redColor];
+//        [newUser setTitle:@"New" forState:UIControlStateNormal];
+//        [newUser addTarget:self action:@selector(createCell) forControlEvents:UIControlEventTouchUpInside];
+//        newUser.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:8];
+//        [header addSubview:newUser];
         
         allPictures = [@[
                          @{   @"image" : @"http://distilleryimage7.ak.instagram.com/6756ea06a44b11e2b62722000a1fbc10_7.jpg",
@@ -86,7 +86,14 @@
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    UIBarButtonItem * addNewSelfyButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(openNewSelfy)];
+    self.navigationItem.rightBarButtonItem = addNewSelfyButton;
+}
+
+-(void)openNewSelfy
+{
+    
 }
 
 - (void)didReceiveMemoryWarning

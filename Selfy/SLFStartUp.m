@@ -29,8 +29,11 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self)
     {
+        //remove auto caps
+        //animate boxes moving up
         userName = [[UITextField alloc]initWithFrame:CGRectMake(50, 120, SCREEN_WIDTH - 100, 20)];
         userName.backgroundColor = [UIColor lightGrayColor];
+        userName.autocapitalizationType = NO;
         [self.view addSubview:userName];
         
         password = [[UITextField alloc]initWithFrame:CGRectMake(50, 150, SCREEN_WIDTH - 100, 20)];
@@ -71,6 +74,13 @@
     userName.text = nil;
     password.text = nil;
     
+    UIActivityIndicatorView * activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+//    [activityIndicator setColor:[UIColor orangeColor]];
+    activityIndicator.color = [UIColor orangeColor];
+    activityIndicator.frame = CGRectMake(0, 240, self.view.frame.size.width, 50);
+    
+    [self.view addSubview:activityIndicator];
+    [activityIndicator startAnimating];
     //uiactivityindicatorview
     //start...
     //addsubview
@@ -83,10 +93,12 @@
             self.navigationController.viewControllers = @[[[SLFTableViewController alloc]initWithStyle:UITableViewStylePlain]];
         } else {
 //            error.userInfo[@"error"];
-            UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:@"NO! WRONG!" message:@"Unauthorized User" delegate:self cancelButtonTitle:@"Try Something Else" otherButtonTitles: nil];
+            
+            [activityIndicator removeFromSuperview];
+
+            UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:@"NO! WRONG!" message:error.userInfo[@"error"] delegate:self cancelButtonTitle:@"Try Something Else" otherButtonTitles: nil];
             
             [alertview show];
-            //remove indicator
         }
     }];
 }
