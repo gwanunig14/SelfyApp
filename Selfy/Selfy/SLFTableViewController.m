@@ -8,20 +8,23 @@
 
 #import "SLFTableViewController.h"
 
+#import "SLFPhoto.h"
+
 #import "SLFTableViewCell.h"
 
 #import <Parse/Parse.h>
 
 @interface SLFTableViewController ()
 
+@property NSMutableArray * allPictures;
+
 @end
 
 @implementation SLFTableViewController
 {
     UIView * header;
-    NSMutableArray * allPictures;
     UIButton * settings;
-    UIButton * newUser;
+    UIBarButtonItem * newPicture;
 }
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -30,29 +33,25 @@
     if (self)
     {
         self.tableView.rowHeight = self.tableView.frame.size.width + 100;
-        header = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 30)];
+
+//        header = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 30)];
 //        self.tableView.tableHeaderView = header;
-        [self.view addSubview:header];
+//        [self.view addSubview:header];
         
-        UILabel * title = [[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/3, 5, SCREEN_WIDTH/3, 20)];
-        title.textAlignment = NSTextAlignmentCenter;
-        title.text = @"Selfy";
-        [header addSubview:title];
+//        UILabel * title = [[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/3, 5, SCREEN_WIDTH/3, 20)];
+//        title.textAlignment = NSTextAlignmentCenter;
+//        title.text = @"Selfy";
+//        [header addSubview:title];
         
         settings = [[UIButton alloc]initWithFrame:CGRectMake(5, 5, 30, 30)];
         settings.layer.cornerRadius = 15;
         settings.backgroundColor = [UIColor redColor];
         [header addSubview:settings];
         
-        newUser = [[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH-35, 5, 30, 30)];
-        newUser.layer.cornerRadius = 15;
-        newUser.backgroundColor = [UIColor redColor];
-        [newUser setTitle:@"New" forState:UIControlStateNormal];
-        [newUser addTarget:self action:@selector(createCell) forControlEvents:UIControlEventTouchUpInside];
-        newUser.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:8];
-        [header addSubview:newUser];
+        newPicture = [[UIBarButtonItem alloc]initWithTitle:@"new" style:UIBarButtonItemStylePlain target:self action:@selector(newPicture)];
+        self.navigationItem.rightBarButtonItem = newPicture;
         
-        allPictures = [@[
+        self.allPictures = [@[
                          @{   @"image" : @"http://distilleryimage7.ak.instagram.com/6756ea06a44b11e2b62722000a1fbc10_7.jpg",
                               @"caption" : @"This is a selfy!",
                               @"user_id" : @"3n2mb23bnm",
@@ -98,7 +97,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [allPictures count];
+    return [self.allPictures count];
 }
 
 
@@ -113,7 +112,7 @@
         cell = [[SLFTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
     }
     
-    cell.pictureInfo = allPictures[indexPath.row];
+    cell.pictureInfo = self.allPictures[indexPath.row];
     
 //    cell.imageView.image = pictures[@"photo"];
 //    cell.detailTextLabel.text = pictures[@"caption"];
@@ -122,7 +121,7 @@
 
 -(void) createCell
 {
-    [allPictures insertObject:@{  //the photo
+    [self.allPictures insertObject:@{  //the photo
                                 @"photo":[UIImage imageNamed:@"sunset"],
                                 //text about the photo
                                 @"caption":@"Woohoo!",
@@ -132,6 +131,12 @@
                                 }
                       atIndex:1];
     [self.tableView reloadData];
+}
+
+-(void)newPicture
+{
+    SLFPhoto * newPhoto = [[SLFPhoto alloc]init];
+    [self.navigationController pushViewController:newPhoto animated:YES];
 }
 
 /*

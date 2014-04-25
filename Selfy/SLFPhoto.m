@@ -8,6 +8,8 @@
 
 #import "SLFPhoto.h"
 
+#import "SLFTableViewCell.h"
+
 #import <Parse/Parse.h>
 
 @interface SLFPhoto () <UITextViewDelegate>
@@ -16,6 +18,7 @@
 
 @implementation SLFPhoto
 {
+    SLFTableViewCell * table;
     UIImageView * newPicture;
     UITextView * newCaption;
     UIButton * create;
@@ -113,11 +116,9 @@
 -(void)writeCaption
 {
     NSLog(@"writing");
+    [self newSelfy];
     
-    PFObject *testObject = [PFObject objectWithClassName:@"UserSelfy"];
-    testObject[@"image"] = @"image.png";
-    testObject[@"caption"] = newCaption.text;
-    [testObject saveInBackground];
+    newCaption.text = @"";
 }
 
 -(void)textViewDidBeginEditing:(UITextView *)textView
@@ -128,9 +129,15 @@
 }
 
 -(void)newSelfy
-//PFObject class name "userselfy"
-//put a png file inside the app
-//PFFile
+{
+    NSData *imageData = UIImagePNGRepresentation(newPicture.image);
+    PFFile *imageFile = [PFFile fileWithName:@"sunset" data:imageData];
+    
+    PFObject *userPhoto = [PFObject objectWithClassName:@"UserPhoto"];
+    userPhoto[@"imageName"] = newCaption.text;
+    userPhoto[@"imageFile"] = imageFile;
+    [userPhoto saveInBackground];
+}
 
 /*
 #pragma mark - Navigation

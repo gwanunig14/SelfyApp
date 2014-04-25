@@ -63,6 +63,9 @@
 {
     NSString * uName = userName.text;
     NSString * pWord = password.text;
+    UIActivityIndicatorView * loading = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [loading startAnimating];
+    [self.view addSubview:loading];
     
     PFUser * user = [PFUser currentUser];
     user.username = uName;
@@ -81,9 +84,11 @@
         {
             self.navigationController.navigationBarHidden = NO;
             self.navigationController.viewControllers = @[[[SLFTableViewController alloc]initWithStyle:UITableViewStylePlain]];
+            [loading removeFromSuperview];
         } else {
 //            error.userInfo[@"error"];
             UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:@"NO! WRONG!" message:@"Unauthorized User" delegate:self cancelButtonTitle:@"Try Something Else" otherButtonTitles: nil];
+            [loading removeFromSuperview];
             
             [alertview show];
             //remove indicator
