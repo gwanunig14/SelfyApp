@@ -28,6 +28,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self)
     {
+        self.view.backgroundColor = [UIColor whiteColor];
+        
         newForm = [[UIView alloc]initWithFrame:self.view.frame];
         [self.view addSubview:newForm];
         
@@ -36,15 +38,15 @@
         title.textAlignment = NSTextAlignmentCenter;
         title.textColor = CYAN_COLOR;
         
-        UIView * header = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 30)];
-        header.backgroundColor = MAGENTA_COLOR;
-        [newForm addSubview:header];
+//        UIView * header = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 30)];
+//        header.backgroundColor = MAGENTA_COLOR;
+//        [newForm addSubview:header];
         
         cancel = [[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH-25, 5, 20, 20)];
         cancel.backgroundColor = PURPLE_COLOR;
         cancel.layer.cornerRadius = 5;
-        [header addSubview:cancel];
-        [header addSubview:title];
+//        [header addSubview:cancel];
+//        [header addSubview:title];
         
         newPicture = [[UIImageView alloc]initWithFrame:CGRectMake(20, 50, SCREEN_WIDTH-40, SCREEN_WIDTH-80)];
         [newPicture setContentMode:UIViewContentModeScaleAspectFit];
@@ -79,6 +81,8 @@
         
 //        NSData *imageData = UIImagePNGRepresentation(newPicture);
 //        PFFile *imageFile = [PFFile fileWithName:@"image.png" data:imageData];
+
+        //status bar color and height resize
        
 
     }
@@ -97,6 +101,15 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    UIBarButtonItem * cancelNewSelfyButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(cancelNewSelfy)];
+    cancelNewSelfyButton.tintColor = PURPLE_COLOR;
+    self.navigationItem.rightBarButtonItem = cancelNewSelfyButton;
+    [self setNeedsStatusBarAppearanceUpdate];
+}
+
+-(void)cancelNewSelfy
+{
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -154,6 +167,9 @@
 }
 */
 
-- (BOOL)prefersStatusBarHidden { return YES; }
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
 
 @end

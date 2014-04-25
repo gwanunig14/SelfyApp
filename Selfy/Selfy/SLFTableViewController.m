@@ -10,6 +10,8 @@
 
 #import "SLFTableViewCell.h"
 
+#import "SLFPhoto.h"
+
 #import <Parse/Parse.h>
 
 @interface SLFTableViewController ()
@@ -93,7 +95,14 @@
 
 -(void)openNewSelfy
 {
+    SLFPhoto * newSelfVC = [[SLFPhoto alloc]initWithNibName:nil bundle:nil];
+    UINavigationController * nc = [[UINavigationController alloc] initWithRootViewController:newSelfVC];
     
+    nc.navigationBar.barTintColor = MAGENTA_COLOR;
+    nc.navigationBar.translucent = NO;
+    
+    [self.navigationController presentViewController:nc animated:YES completion:^{
+    }];
 }
 
 - (void)didReceiveMemoryWarning
@@ -191,5 +200,6 @@
 */
 
 - (BOOL)prefersStatusBarHidden { return YES; }
+
 
 @end
