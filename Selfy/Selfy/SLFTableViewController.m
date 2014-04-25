@@ -8,6 +8,8 @@
 
 #import "SLFTableViewController.h"
 
+#import "SLFPhoto.h"
+
 #import "SLFTableViewCell.h"
 
 #import <Parse/Parse.h>
@@ -18,6 +20,7 @@
 
 @implementation SLFTableViewController
 {
+    SLFPhoto * takeAPicture;
     UIView * header;
     NSMutableArray * allPictures;
     UIButton * settings;
@@ -93,7 +96,10 @@
 
 -(void)openNewSelfy
 {
-    
+    takeAPicture = [[SLFPhoto alloc]init];
+    [self.navigationController presentViewController:takeAPicture animated:YES completion:^{
+        NSLog(@"done");
+    }];
 }
 
 - (void)didReceiveMemoryWarning
