@@ -50,6 +50,7 @@
 		9CA70A121906BDA30024E474 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CA70A111906BDA30024E474 /* StoreKit.framework */; };
 		9CA70A181906DBA00024E474 /* SLFStartUp.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CA70A171906DBA00024E474 /* SLFStartUp.m */; };
 		9CA70A1B1906E0C90024E474 /* SLFPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CA70A1A1906E0C90024E474 /* SLFPhoto.m */; };
+		9CF93ED6190E914800AD523D /* Calvin.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CF93ED5190E914800AD523D /* Calvin.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,6 +115,7 @@
 		9CA70A171906DBA00024E474 /* SLFStartUp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLFStartUp.m; sourceTree = "<group>"; };
 		9CA70A191906E0C90024E474 /* SLFPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLFPhoto.h; sourceTree = "<group>"; };
 		9CA70A1A1906E0C90024E474 /* SLFPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLFPhoto.m; sourceTree = "<group>"; };
+		9CF93ED5190E914800AD523D /* Calvin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Calvin.png; path = ../../Desktop/Calvin.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -259,6 +261,7 @@
 				9CA709E819058FA20024E474 /* Me.png */,
 				9CA709E919058FA20024E474 /* Savitha.png */,
 				9CA709FA1905907C0024E474 /* sunset.png */,
+				9CF93ED5190E914800AD523D /* Calvin.png */,
 			);
 			name = Pictures;
 			sourceTree = "<group>";
@@ -341,6 +344,7 @@
 			files = (
 				9CA709F419058FA20024E474 /* Jo.png in Resources */,
 				9CA709FB1905907D0024E474 /* sunset.png in Resources */,
+				9CF93ED6190E914800AD523D /* Calvin.png in Resources */,
 				9CA709EC19058FA20024E474 /* Austin.png in Resources */,
 				9CA709EE19058FA20024E474 /* Derek.png in Resources */,
 				9CA709F619058FA20024E474 /* Jon.png in Resources */,
@@ -586,6 +590,7 @@
 				9CA709D2190588550024E474 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9CA709D3190588550024E474 /* Build configuration list for PBXNativeTarget "SelfyTests" */ = {
 			isa = XCConfigurationList;
@@ -594,6 +599,7 @@
 				9CA709D5190588550024E474 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -38,24 +38,32 @@
     return self;
 }
 
-- (void)setPictureInfo:(NSDictionary *)pictureInfo
+- (void)setPictureInfo:(PFObject *)pictureInfo
 {
     _pictureInfo = pictureInfo;
+    
+    PFFile * imageFile = [pictureInfo objectForKey:@"image"];
+    
+    [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
 
+        UIImage * image = [UIImage imageWithData:data];
+        personalPhoto.image = image;
+        
+    } progressBlock:^(int percentDone) {
+        
+        //do something
+        
+    }];
     
-    NSURL * imageURL = [NSURL URLWithString:pictureInfo[@"image"]];
-    NSData * imageData = [NSData dataWithContentsOfURL:imageURL];
-    UIImage * image = [UIImage imageWithData:imageData];
     
-    personalPhoto.image = image;
+//    photoCaption.text = pictureInfo [@"caption"];
+    photoCaption.text = [pictureInfo objectForKey:@"caption"];
     
-    photoCaption.text = pictureInfo [@"caption"];
-    
-    NSURL * avatarURL = [NSURL URLWithString:pictureInfo[@"avatar"]];
-    NSData * avatarData = [NSData dataWithContentsOfURL:avatarURL];
-    UIImage * avatar = [UIImage imageWithData:avatarData];
-    
-    userPhoto.image = avatar;
+//    NSURL * avatarURL = [NSURL URLWithString:pictureInfo[@"avatar"]];
+//    NSData * avatarData = [NSData dataWithContentsOfURL:avatarURL];
+//    UIImage * avatar = [UIImage imageWithData:avatarData];
+//    
+//    userPhoto.image = avatar;
 }
 
 - (void)awakeFromNib

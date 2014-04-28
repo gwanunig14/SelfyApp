@@ -30,7 +30,7 @@
     {
         self.view.backgroundColor = [UIColor whiteColor];
         
-        newForm = [[UIView alloc]initWithFrame:self.view.frame];
+        newForm = [[UIView alloc]initWithFrame:CGRectMake(0, 20, SCREEN_WIDTH, SCREEN_HEIGHT-20)];
         [self.view addSubview:newForm];
         
         UILabel * title = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/3, 5, SCREEN_WIDTH/3,20)];
@@ -50,7 +50,7 @@
         
         newPicture = [[UIImageView alloc]initWithFrame:CGRectMake(20, 50, SCREEN_WIDTH-40, SCREEN_WIDTH-80)];
         [newPicture setContentMode:UIViewContentModeScaleAspectFit];
-        newPicture.image = [UIImage imageNamed:@"sunset"];
+        newPicture.image = [UIImage imageNamed:@"Calvin"];
         newPicture.backgroundColor = [UIColor whiteColor];
         [[newPicture layer] setBorderWidth:2.0];
         [[newPicture layer] setBorderColor:[UIColor colorWithRed:16/255.0f green:237/255.0f blue:13/255.0f alpha:1.0f].CGColor];
@@ -69,7 +69,7 @@
         create = [[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/4, SCREEN_WIDTH+50, SCREEN_WIDTH/2, 80)];
         create.backgroundColor = [UIColor whiteColor];
         create.layer.cornerRadius = 40;
-        [create addTarget:self action:@selector(writeCaption) forControlEvents:UIControlEventTouchUpInside];
+        [create addTarget:self action:@selector(newSelfy) forControlEvents:UIControlEventTouchUpInside];
         [[create layer] setBorderWidth:2.0];
         [[create layer] setBorderColor:[UIColor colorWithRed:16/255.0f green:237/255.0f blue:13/255.0f alpha:1.0f].CGColor];
         [create setTitle:@"SUBMIT" forState:normal];
@@ -93,7 +93,7 @@
 {
     [newCaption resignFirstResponder];
     [UIView animateWithDuration:0.2 animations:^{
-        newForm.frame = self.view.frame;
+        newForm.frame = CGRectMake(0, 20, SCREEN_WIDTH, SCREEN_HEIGHT-20);
     }];
 }
 
@@ -109,7 +109,9 @@
 
 -(void)cancelNewSelfy
 {
-    
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{
+        
+    }];
 }
 
 - (void)didReceiveMemoryWarning
@@ -123,22 +125,19 @@
     newPicture.alpha = .25;
 }
 
--(void)writeCaption
+-(void)newSelfy
 {
-    NSLog(@"writing");
     
-    UIImage * image = [UIImage imageNamed:@"sunset.png"];
-    NSData * imageData = UIImagePNGRepresentation(image);
-    PFFile * imageFile = [PFFile fileWithName:@"It worked" data:imageData];
+    //connect current user to newSelfy as parent: parse "relational data"
+    
+    NSData * imageData = UIImagePNGRepresentation(newPicture.image);
+    PFFile * imageFile = [PFFile fileWithName:@"image.png" data:imageData];
     PFObject * newSelfy = [PFObject objectWithClassName:@"UserSelfy"];
     newSelfy[@"caption"]=newCaption.text;
     newSelfy[@"image"]=imageFile;
-    [newSelfy saveInBackground];
-    
-//    PFObject *testObject = [PFObject objectWithClassName:@"UserSelfy"];
-//    testObject[@"image"] = @"image.png";
-//    testObject[@"caption"] = newCaption.text;
-//    [testObject saveInBackground];
+    [newSelfy saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+       [self cancelNewSelfy];
+    }];
 }
 
 -(void)textViewDidBeginEditing:(UITextView *)textView
@@ -148,13 +147,6 @@
     }];
 }
 
--(void)newSelfy
-{
-    
-}
-//PFObject class name "userselfy"
-//put a png file inside the app
-//PFFile
 
 /*
 #pragma mark - Navigation

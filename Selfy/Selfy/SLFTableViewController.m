@@ -21,7 +21,7 @@
 @implementation SLFTableViewController
 {
     UIView * header;
-    NSMutableArray * allPictures;
+    NSArray * allPictures;
     UIButton * settings;
     UIButton * newUser;
 }
@@ -40,38 +40,6 @@
         title.textAlignment = NSTextAlignmentCenter;
         title.text = @"Selfy";
         [header addSubview:title];
-//        
-//        settings = [[UIButton alloc]initWithFrame:CGRectMake(5, 5, 30, 30)];
-//        settings.layer.cornerRadius = 15;
-//        settings.backgroundColor = [UIColor redColor];
-//        [header addSubview:settings];
-        
-//        newUser = [[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH-35, 5, 30, 30)];
-//        newUser.layer.cornerRadius = 15;
-//        newUser.backgroundColor = [UIColor redColor];
-//        [newUser setTitle:@"New" forState:UIControlStateNormal];
-//        [newUser addTarget:self action:@selector(createCell) forControlEvents:UIControlEventTouchUpInside];
-//        newUser.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:8];
-//        [header addSubview:newUser];
-        
-        allPictures = [@[
-                         @{   @"image" : @"http://distilleryimage7.ak.instagram.com/6756ea06a44b11e2b62722000a1fbc10_7.jpg",
-                              @"caption" : @"This is a selfy!",
-                              @"user_id" : @"3n2mb23bnm",
-                              @"avatar" : @"https://media.licdn.com/mpr/mpr/shrink_200_200/p/4/005/036/354/393842f.jpg",
-                              @"selfy_id" : @"hjk2l32bn1"
-                            }
-                        ] mutableCopy];
-       
-        PFObject *testObject = [PFObject objectWithClassName:@"TestObject"];
-        testObject[@"name"] = @"T.J.";
-        [testObject saveInBackground];
-        
-        PFUser * user = [PFUser currentUser];
-        user.username = @"T.J.";
-        user.password = @"password";
-        
-        [user saveInBackground];
     }
     return self;
 }
@@ -80,9 +48,9 @@
 {
     [super viewDidLoad];
     
-    PFObject *testObject = [PFObject objectWithClassName:@"TestObject"];
-    testObject[@"foo"] = @"bar";
-    [testObject saveInBackground];
+//    PFObject *testObject = [PFObject objectWithClassName:@"TestObject"];
+//    testObject[@"foo"] = @"bar";
+//    [testObject saveInBackground];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -114,9 +82,28 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
+    
     return [allPictures count];
 }
 
+-(void)refreshSelfies
+{
+    PFQuery * query = [PFQuery queryWithClassName:@"UserSelfy"];
+    
+    //change order to by created date: newest first
+    
+    //after user connected to selfy: filter only you user's selfies
+    
+    //nothing happens til this is done which is handy if you need its result firs.
+//    allPictures = [query findObjects];
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+    {
+        allPictures = objects;
+        [self.tableView reloadData];
+    }];
+
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -136,18 +123,9 @@
     return cell;
 }
 
--(void) createCell
+-(void)viewWillAppear:(BOOL)animated
 {
-    [allPictures insertObject:@{  //the photo
-                                @"photo":[UIImage imageNamed:@"sunset"],
-                                //text about the photo
-                                @"caption":@"Woohoo!",
-                                //phototaker's name
-                                @"user": @"The Internet",
-                                @"avatar": [UIImage imageNamed:@"Austen"]
-                                }
-                      atIndex:1];
-    [self.tableView reloadData];
+    [self refreshSelfies];
 }
 
 /*
