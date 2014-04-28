@@ -38,15 +38,9 @@
         title.textAlignment = NSTextAlignmentCenter;
         title.textColor = CYAN_COLOR;
         
-//        UIView * header = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 30)];
-//        header.backgroundColor = MAGENTA_COLOR;
-//        [newForm addSubview:header];
-        
         cancel = [[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH-25, 5, 20, 20)];
         cancel.backgroundColor = PURPLE_COLOR;
         cancel.layer.cornerRadius = 5;
-//        [header addSubview:cancel];
-//        [header addSubview:title];
         
         newPicture = [[UIImageView alloc]initWithFrame:CGRectMake(20, 50, SCREEN_WIDTH-40, SCREEN_WIDTH-80)];
         [newPicture setContentMode:UIViewContentModeScaleAspectFit];
@@ -54,7 +48,6 @@
         newPicture.backgroundColor = [UIColor whiteColor];
         [[newPicture layer] setBorderWidth:2.0];
         [[newPicture layer] setBorderColor:[UIColor colorWithRed:16/255.0f green:237/255.0f blue:13/255.0f alpha:1.0f].CGColor];
-//        newPicture = (@"sunset");
         [newForm addSubview:newPicture];
         
         newCaption = [[UITextView alloc]initWithFrame:CGRectMake(20, SCREEN_WIDTH-20, SCREEN_WIDTH-40, 60)];
@@ -79,9 +72,6 @@
         UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapScreen)];
         [self.view addGestureRecognizer:tap];
         
-//        NSData *imageData = UIImagePNGRepresentation(newPicture);
-//        PFFile *imageFile = [PFFile fileWithName:@"image.png" data:imageData];
-
         //status bar color and height resize
        
 
@@ -129,15 +119,32 @@
 {
     
     //connect current user to newSelfy as parent: parse "relational data"
-    
     NSData * imageData = UIImagePNGRepresentation(newPicture.image);
     PFFile * imageFile = [PFFile fileWithName:@"image.png" data:imageData];
     PFObject * newSelfy = [PFObject objectWithClassName:@"UserSelfy"];
+    PFObject * user = [PFObject objectWithClassName:@"user"];
+    user[@"user"]=[PFUser currentUser];
     newSelfy[@"caption"]=newCaption.text;
     newSelfy[@"image"]=imageFile;
+//    newSelfy[@"user"]=[PFUser currentUser];
+    newSelfy[@"parent"] = user;
     [newSelfy saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
        [self cancelNewSelfy];
     }];
+    // Create the post
+    PFObject *myPost = [PFObject objectWithClassName:@"Post"];
+    myPost[@"title"] = @"I'm Hungry";
+    myPost[@"content"] = @"Where should we go for lunch?";
+    
+    // Create the comment
+    PFObject *myComment = [PFObject objectWithClassName:@"Comment"];
+    myComment[@"content"] = @"Let's do Sushirrito.";
+    
+    // Add a relation between the Post and Comment
+    myComment[@"parent"] = myPost;
+    
+    // This will save both myPost and myComment
+    [myComment saveInBackground];
 }
 
 -(void)textViewDidBeginEditing:(UITextView *)textView

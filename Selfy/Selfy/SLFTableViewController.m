@@ -40,6 +40,7 @@
         title.textAlignment = NSTextAlignmentCenter;
         title.text = @"Selfy";
         [header addSubview:title];
+        
     }
     return self;
 }
@@ -90,9 +91,7 @@
 {
     PFQuery * query = [PFQuery queryWithClassName:@"UserSelfy"];
     
-    //change order to by created date: newest first
-    
-    //after user connected to selfy: filter only you user's selfies
+    //after user connected to selfy: filter only your user's selfies
     
     //nothing happens til this is done which is handy if you need its result firs.
 //    allPictures = [query findObjects];
@@ -100,6 +99,8 @@
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
     {
         allPictures = objects;
+        allPictures = [[allPictures reverseObjectEnumerator] allObjects];
+        
         [self.tableView reloadData];
     }];
 
