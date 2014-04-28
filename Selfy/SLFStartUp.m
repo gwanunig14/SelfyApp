@@ -46,6 +46,15 @@
         submit.backgroundColor = [UIColor redColor];
         submit.layer.cornerRadius = 20;
         [self.view addSubview:submit];
+        
+        
+        //sign in button. sign up button.
+        //sign in show username password and log in
+        //sign up will present a view with username password email first name last name and add avatar
+        //find pfuser log in method
+        
+        
+        
     }
     return self;
 }

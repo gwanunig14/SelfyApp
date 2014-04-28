@@ -28,6 +28,12 @@
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
+    
+    //make nav bar settings button
+    
+    
+    
+    
     self = [super initWithStyle:style];
     if (self)
     {
@@ -89,6 +95,10 @@
 -(void)refreshSelfies
 {
     PFQuery * query = [PFQuery queryWithClassName:@"UserSelfy"];
+    
+    [query orderByDescending:@"createdAt"];
+    
+    [query whereKey:@"parent" equalTo:[PFUser currentUser]];
     
     //change order to by created date: newest first
     
