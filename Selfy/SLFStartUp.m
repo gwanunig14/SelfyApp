@@ -12,6 +12,8 @@
 
 #import "SLFTableViewController.h"
 
+#import "SLFSignUpViewController.h"
+
 @interface SLFStartUp ()
 
 @end
@@ -29,8 +31,6 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self)
     {
-        //remove auto caps
-        //animate boxes moving up
         userName = [[UITextField alloc]initWithFrame:CGRectMake(50, 120, SCREEN_WIDTH - 100, 20)];
         userName.backgroundColor = [UIColor lightGrayColor];
         userName.autocapitalizationType = NO;
@@ -41,22 +41,32 @@
         password.secureTextEntry = YES;
         [self.view addSubview:password];
         
-        submit = [[UIButton alloc]initWithFrame:CGRectMake(50, 180, SCREEN_WIDTH - 100, 40)];
+        submit = [[UIButton alloc]initWithFrame:CGRectMake(0, 100, 280, 40)];
         [submit addTarget:self action:@selector(logIn) forControlEvents:UIControlEventTouchUpInside];
         submit.backgroundColor = [UIColor redColor];
         submit.layer.cornerRadius = 20;
         [self.view addSubview:submit];
         
-        
-        //sign in button. sign up button.
-        //sign in show username password and log in
-        //sign up will present a view with username password email first name last name and add avatar
-        //find pfuser log in method
-        
-        
+        UIButton * signupButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 150, 280, 40)];
+        [signupButton addTarget:self action:@selector(showSignUp) forControlEvents:UIControlEventTouchUpInside];
+        signupButton.backgroundColor = [UIColor blueColor];
+        signupButton.layer.cornerRadius = 6;
+        [self.view addSubview:signupButton];
         
     }
     return self;
+}
+
+-(void)showSignUp
+{
+    SLFSignUpViewController * signUpVC = [[SLFSignUpViewController alloc]initWithNibName:nil bundle:nil];
+    UINavigationController * nc = [[UINavigationController alloc] initWithRootViewController:signUpVC];
+    
+    nc.navigationBar.barTintColor = [UIColor blueColor];
+    nc.navigationBar.translucent = NO;
+    
+    [self.navigationController presentViewController:nc animated:YES completion:^{
+    }];
 }
 
 - (void)viewDidLoad
@@ -73,43 +83,37 @@
 
 -(void)logIn
 {
-    NSString * uName = userName.text;
-    NSString * pWord = password.text;
-    
-    PFUser * user = [PFUser currentUser];
-    user.username = uName;
-    user.password = pWord;
-        
-    userName.text = nil;
-    password.text = nil;
+    [self hideKeyboard];
     
     UIActivityIndicatorView * activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-//    [activityIndicator setColor:[UIColor orangeColor]];
     activityIndicator.color = [UIColor orangeColor];
-    activityIndicator.frame = CGRectMake(0, 240, self.view.frame.size.width, 50);
+    activityIndicator.frame = CGRectMake(0, 200, 280, 50);
     
     [self.view addSubview:activityIndicator];
     [activityIndicator startAnimating];
-    //uiactivityindicatorview
-    //start...
-    //addsubview
     
-    [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+    [PFUser logInWithUsernameInBackground:userName.text password:password.text block:^(PFUser *user, NSError *error)
     {
         if (error == nil)
         {
             self.navigationController.navigationBarHidden = NO;
             self.navigationController.viewControllers = @[[[SLFTableViewController alloc]initWithStyle:UITableViewStylePlain]];
         } else {
-//            error.userInfo[@"error"];
+            password.text = nil;
             
             [activityIndicator removeFromSuperview];
-
+            
             UIAlertView * alertview = [[UIAlertView alloc] initWithTitle:@"NO! WRONG!" message:error.userInfo[@"error"] delegate:self cancelButtonTitle:@"Try Something Else" otherButtonTitles: nil];
             
             [alertview show];
         }
     }];
+}
+
+-(void)hideKeyboard
+{
+    [userName resignFirstResponder];
+    [password resignFirstResponder];
 }
 
 /*

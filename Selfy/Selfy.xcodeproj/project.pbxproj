@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9C014EED190FDD11004FD659 /* SLFSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C014EEC190FDD11004FD659 /* SLFSignUpViewController.m */; };
 		9CA709A8190588550024E474 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CA709A7190588550024E474 /* Foundation.framework */; };
 		9CA709AA190588550024E474 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CA709A9190588550024E474 /* CoreGraphics.framework */; };
 		9CA709AC190588550024E474 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CA709AB190588550024E474 /* UIKit.framework */; };
@@ -64,6 +65,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9C014EEB190FDD11004FD659 /* SLFSignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLFSignUpViewController.h; sourceTree = "<group>"; };
+		9C014EEC190FDD11004FD659 /* SLFSignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLFSignUpViewController.m; sourceTree = "<group>"; };
 		9CA709A4190588550024E474 /* Selfy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Selfy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CA709A7190588550024E474 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		9CA709A9190588550024E474 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -161,6 +164,8 @@
 				9CA709D7190588BC0024E474 /* SLFTableViewController.m */,
 				9CA70A161906DBA00024E474 /* SLFStartUp.h */,
 				9CA70A171906DBA00024E474 /* SLFStartUp.m */,
+				9C014EEB190FDD11004FD659 /* SLFSignUpViewController.h */,
+				9C014EEC190FDD11004FD659 /* SLFSignUpViewController.m */,
 				9CA70A191906E0C90024E474 /* SLFPhoto.h */,
 				9CA70A1A1906E0C90024E474 /* SLFPhoto.m */,
 				9CA709AD190588550024E474 /* Selfy */,
@@ -382,6 +387,7 @@
 			files = (
 				9CA70A1B1906E0C90024E474 /* SLFPhoto.m in Sources */,
 				9CA709B8190588550024E474 /* SLFAppDelegate.m in Sources */,
+				9C014EED190FDD11004FD659 /* SLFSignUpViewController.m in Sources */,
 				9CA70A181906DBA00024E474 /* SLFStartUp.m in Sources */,
 				9CA709FE19059DA20024E474 /* SLFTableViewCell.m in Sources */,
 				9CA709B4190588550024E474 /* main.m in Sources */,

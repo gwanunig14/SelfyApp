@@ -104,7 +104,7 @@
     
     //after user connected to selfy: filter only you user's selfies
     
-    //nothing happens til this is done which is handy if you need its result firs.
+    //nothing happens til this is done which is handy if you need its result first.
 //    allPictures = [query findObjects];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
@@ -128,8 +128,6 @@
     
     cell.pictureInfo = allPictures[indexPath.row];
     
-//    cell.imageView.image = pictures[@"photo"];
-//    cell.detailTextLabel.text = pictures[@"caption"];
     return cell;
 }
 
