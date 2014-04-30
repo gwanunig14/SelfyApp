@@ -10,7 +10,13 @@
 
 #import "SLFTableViewCell.h"
 
+#import "SLFNewNavController.h"
+
 #import "SLFPhoto.h"
+
+#import "SLFSettingsButton.h"
+
+#import "SLFSettingsMenu.h"
 
 #import <Parse/Parse.h>
 
@@ -20,10 +26,11 @@
 
 @implementation SLFTableViewController
 {
-    UIView * header;
+    SLFSettingsButton * settingsMenuButton;
     NSArray * allPictures;
     UIButton * settings;
     UIButton * newUser;
+    UIViewController * settingsMenu;
 }
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -31,21 +38,14 @@
     
     //make nav bar settings button
     
-    
-    
-    
     self = [super initWithStyle:style];
     if (self)
     {
         self.tableView.rowHeight = self.tableView.frame.size.width + 100;
-        header = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 30)];
-//        self.tableView.tableHeaderView = header;
-        [self.view addSubview:header];
         
         UILabel * title = [[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/3, 5, SCREEN_WIDTH/3, 20)];
         title.textAlignment = NSTextAlignmentCenter;
         title.text = @"Selfy";
-        [header addSubview:title];
     }
     return self;
 }
@@ -65,12 +65,22 @@
     
     UIBarButtonItem * addNewSelfyButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(openNewSelfy)];
     self.navigationItem.rightBarButtonItem = addNewSelfyButton;
+    
+    settingsMenuButton = [[SLFSettingsButton alloc]initWithFrame:CGRectMake(0, 0, 20, 20)];
+    [settingsMenuButton addTarget:self action:@selector(openMenuBar) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem * menuButton = [[UIBarButtonItem alloc]initWithCustomView:settingsMenuButton];
+    self.navigationItem.leftBarButtonItem = menuButton;
+    
+    settingsMenu = [[SLFSettingsMenu alloc] init];
+    settingsMenu.view.frame = CGRectMake(50-SCREEN_WIDTH, 0, SCREEN_WIDTH-50, SCREEN_HEIGHT);
+    
+    NSLog(@"%@",self.navigationController);
 }
 
 -(void)openNewSelfy
 {
     SLFPhoto * newSelfVC = [[SLFPhoto alloc]initWithNibName:nil bundle:nil];
-    UINavigationController * nc = [[UINavigationController alloc] initWithRootViewController:newSelfVC];
+    SLFNewNavController * nc = [[SLFNewNavController alloc] initWithRootViewController:newSelfVC];
     
     nc.navigationBar.barTintColor = MAGENTA_COLOR;
     nc.navigationBar.translucent = NO;
@@ -100,19 +110,35 @@
     
     [query whereKey:@"parent" equalTo:[PFUser currentUser]];
     
-    //change order to by created date: newest first
-    
-    //after user connected to selfy: filter only you user's selfies
-    
-    //nothing happens til this is done which is handy if you need its result first.
-//    allPictures = [query findObjects];
-    
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
     {
         allPictures = objects;
         [self.tableView reloadData];
     }];
 
+}
+
+-(void)openMenuBar
+{
+    NSLog(@"%@",self.navigationController);
+    [self.navigationController.view addSubview:settingsMenu.view];
+    
+    
+    if (self.navigationController.view.frame.origin.x == 0)
+    {
+        [UIView animateWithDuration:0.5 animations:^{
+        self.navigationController.view.frame = CGRectMake(SCREEN_WIDTH-50, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    }];
+       
+        settingsMenuButton.menuOpen = TRUE;
+        [settingsMenuButton setNeedsDisplay];
+    }else{
+        [UIView animateWithDuration:0.5 animations:^{
+            self.navigationController.view.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        }];
+        settingsMenuButton.menuOpen = FALSE;
+        [settingsMenuButton setNeedsDisplay];
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

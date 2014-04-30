@@ -101,7 +101,7 @@
 
     user.email = ((UITextField *)fields[3]).text;
     
-    user[@"displayName"] = ((UITextField *)fields[3]).text;
+    user[@"displayName"] = ((UITextField *)fields[2]).text;
     
     [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (error == nil)

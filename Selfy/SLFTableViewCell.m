@@ -51,19 +51,9 @@
         
     } progressBlock:^(int percentDone) {
         
-        //do something
-        
     }];
     
-    
-//    photoCaption.text = pictureInfo [@"caption"];
     photoCaption.text = [pictureInfo objectForKey:@"caption"];
-    
-//    NSURL * avatarURL = [NSURL URLWithString:pictureInfo[@"avatar"]];
-//    NSData * avatarData = [NSData dataWithContentsOfURL:avatarURL];
-//    UIImage * avatar = [UIImage imageWithData:avatarData];
-//    
-//    userPhoto.image = avatar;
 }
 
 - (void)awakeFromNib
