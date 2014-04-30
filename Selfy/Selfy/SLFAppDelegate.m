@@ -37,7 +37,7 @@
     
     NSString * username = user.username;
     
-    username = nil;
+//    username = nil;
     
     if (username == nil) {
         navController = [[UINavigationController alloc]initWithRootViewController:[[SLFStartUp alloc]initWithNibName:nil bundle:nil]];

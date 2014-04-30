@@ -95,13 +95,20 @@
 
 -(void)signUp
 {
+    [self hideKeyboard];
+    
     PFUser * user = [PFUser user];
+    
+    UIImage * avatarImage = [UIImage imageNamed:@"Me"];
+    NSData * imageData = UIImagePNGRepresentation(avatarImage);
+    PFFile * imageFile = [PFFile fileWithName:@"avatar.png" data:imageData];
+   
+ 
     user.username = ((UITextField *)fields[0]).text;
     user.password = ((UITextField *)fields[1]).text;
-
     user.email = ((UITextField *)fields[3]).text;
-    
-    user[@"displayName"] = ((UITextField *)fields[3]).text;
+    user[@"displayName"] = ((UITextField *)fields[2]).text;
+    user[@"avatar"] = imageFile;
     
     [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (error == nil)
@@ -110,6 +117,8 @@
             [self cancelSignUp];
             pnc.navigationBarHidden = NO;
             pnc.viewControllers = @[[[SLFTableViewController alloc]initWithStyle:UITableViewStylePlain]];
+            self.navigationController.navigationBarHidden = NO;
+            self.navigationController.viewControllers = @[[[SLFTableViewController alloc]initWithStyle:UITableViewStylePlain]];
         } else {
             NSString * errorDescription = error.userInfo[@"error"];
             

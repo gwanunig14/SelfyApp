@@ -27,6 +27,7 @@
         userPhoto = [[UIImageView alloc]initWithFrame:CGRectMake(20, 320, 40, 40)];
         userPhoto.layer.cornerRadius = 20;
         userPhoto.layer.masksToBounds = YES;
+        [userPhoto setContentMode:UIViewContentModeScaleAspectFit];
         
         photoCaption = [[UILabel alloc]initWithFrame:CGRectMake(80, 320, 220, 40)];
         photoCaption.textColor = [UIColor darkGrayColor];
@@ -53,6 +54,14 @@
         
         //do something
         
+    }];
+    PFUser * user = [pictureInfo objectForKey:@"parent"];
+    
+    [user fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+        PFFile * avatarFile = [user objectForKey:@"avatar"];
+        [avatarFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+            userPhoto.image = [UIImage imageWithData:data];
+        }];
     }];
     
     

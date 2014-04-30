@@ -41,13 +41,13 @@
         password.secureTextEntry = YES;
         [self.view addSubview:password];
         
-        submit = [[UIButton alloc]initWithFrame:CGRectMake(0, 100, 280, 40)];
+        submit = [[UIButton alloc]initWithFrame:CGRectMake(0, 200, 280, 40)];
         [submit addTarget:self action:@selector(logIn) forControlEvents:UIControlEventTouchUpInside];
         submit.backgroundColor = [UIColor redColor];
         submit.layer.cornerRadius = 20;
         [self.view addSubview:submit];
         
-        UIButton * signupButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 150, 280, 40)];
+        UIButton * signupButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 250, 280, 40)];
         [signupButton addTarget:self action:@selector(showSignUp) forControlEvents:UIControlEventTouchUpInside];
         signupButton.backgroundColor = [UIColor blueColor];
         signupButton.layer.cornerRadius = 6;

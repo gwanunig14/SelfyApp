@@ -12,6 +12,10 @@
 
 #import "SLFPhoto.h"
 
+#import "SLFSettingsButton.h"
+
+#import "SLFSettingsMenu.h"
+
 #import <Parse/Parse.h>
 
 @interface SLFTableViewController ()
@@ -20,8 +24,11 @@
 
 @implementation SLFTableViewController
 {
-    UIView * header;
+    SLFSettingsButton * settingsButtonView;
+    SLFSettingsMenu * settingsVC;
+    
     NSArray * allPictures;
+
     UIButton * settings;
     UIButton * newUser;
 }
@@ -38,14 +45,10 @@
     if (self)
     {
         self.tableView.rowHeight = self.tableView.frame.size.width + 100;
-        header = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 30)];
-//        self.tableView.tableHeaderView = header;
-        [self.view addSubview:header];
         
         UILabel * title = [[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/3, 5, SCREEN_WIDTH/3, 20)];
         title.textAlignment = NSTextAlignmentCenter;
         title.text = @"Selfy";
-        [header addSubview:title];
     }
     return self;
 }
@@ -54,10 +57,6 @@
 {
     [super viewDidLoad];
     
-//    PFObject *testObject = [PFObject objectWithClassName:@"TestObject"];
-//    testObject[@"foo"] = @"bar";
-//    [testObject saveInBackground];
-    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -65,6 +64,21 @@
     
     UIBarButtonItem * addNewSelfyButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(openNewSelfy)];
     self.navigationItem.rightBarButtonItem = addNewSelfyButton;
+    addNewSelfyButton.tintColor = [UIColor blueColor];
+    
+    settingsButtonView = [[SLFSettingsButton alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+    [settingsButtonView addTarget:self action:@selector(openSettings) forControlEvents:UIControlEventTouchUpInside];
+    settingsButtonView.tintColor = [UIColor blueColor];
+    settingsButtonView.toggledTintColor = [UIColor redColor];
+    
+    UIBarButtonItem * settingsButton = [[UIBarButtonItem alloc]initWithCustomView:settingsButtonView];
+    self.navigationItem.leftBarButtonItem = settingsButton;
+    
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self refreshSelfies];
 }
 
 -(void)openNewSelfy
@@ -77,6 +91,33 @@
     
     [self.navigationController presentViewController:nc animated:YES completion:^{
     }];
+    
+}
+
+-(void)openSettings
+{
+    NSLog(@"button pressing");
+    [settingsButtonView toggle];
+    
+    // ? is an if/else shortcut for true/false statements
+    int X = [settingsButtonView isToggled] ? SCREEN_WIDTH - 52 : 0;
+    
+    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        self.navigationController.view.frame = CGRectMake(X, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    } completion:^(BOOL finished) {
+        if ([settingsButtonView isToggled])
+        {
+            [settingsVC.view removeFromSuperview];
+        }
+    }];
+    
+    if ([settingsButtonView isToggled])
+    {
+    settingsVC = [[SLFSettingsMenu alloc] initWithNibName:nil bundle:nil];
+    
+    settingsVC.view.frame = CGRectMake(52-SCREEN_WIDTH, 0, SCREEN_WIDTH - 50, SCREEN_HEIGHT);
+    [self.navigationController.view addSubview:settingsVC.view];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -129,11 +170,6 @@
     cell.pictureInfo = allPictures[indexPath.row];
     
     return cell;
-}
-
--(void)viewWillAppear:(BOOL)animated
-{
-    [self refreshSelfies];
 }
 
 /*
