@@ -10,9 +10,9 @@
 
 @implementation SLFTableViewCell
 {
-    UIImageView * personalPhoto;
     UILabel * photoCaption;
     UIImageView * userPhoto;
+    UIImageView * personalPhoto;
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier

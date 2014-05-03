@@ -16,6 +16,8 @@
 
 #import "SLFSettingsMenu.h"
 
+#import "PhotoEditor.h"
+
 #import <Parse/Parse.h>
 
 @interface SLFTableViewController ()
@@ -26,6 +28,7 @@
 {
     SLFSettingsButton * settingsButtonView;
     SLFSettingsMenu * settingsVC;
+    PhotoEditor * selfyEditor;
     
     NSArray * allPictures;
 
@@ -70,15 +73,17 @@
     [settingsButtonView addTarget:self action:@selector(openSettings) forControlEvents:UIControlEventTouchUpInside];
     settingsButtonView.tintColor = [UIColor blueColor];
     settingsButtonView.toggledTintColor = [UIColor redColor];
+//    photoEditor.view.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     
     UIBarButtonItem * settingsButton = [[UIBarButtonItem alloc]initWithCustomView:settingsButtonView];
     self.navigationItem.leftBarButtonItem = settingsButton;
-    
+
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [self refreshSelfies];
+    
 }
 
 -(void)openNewSelfy
@@ -153,6 +158,7 @@
         allPictures = objects;
         [self.tableView reloadData];
     }];
+    
 
 }
 
@@ -170,6 +176,38 @@
     cell.pictureInfo = allPictures[indexPath.row];
     
     return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    selfyEditor = [[PhotoEditor alloc]initWithNibName:nil bundle:nil];
+    
+    PFFile * imageFile = [allPictures[indexPath.row] objectForKey:@"image"];
+    
+    NSLog(@"%@",imageFile);
+    
+    [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+        
+        UIImage * image = [UIImage imageWithData:data];
+        image = selfyEditor.pictureToEdit.image;
+    } progressBlock:^(int percentDone) {
+        
+        NSLog(@"%@",selfyEditor.pictureToEdit.image);
+        
+        UINavigationController * nc = [[UINavigationController alloc] initWithRootViewController:selfyEditor];
+        
+        nc.navigationBar.barTintColor = MAGENTA_COLOR;
+        nc.navigationBar.translucent = NO;
+        
+        [self.navigationController presentViewController:nc animated:YES completion:^{
+        }];
+    }];
+    
+//    NSLog(@"%@",allPictures[indexPath.row][@"image"]);
+    
+//    selfyEditor.pictureToEdit.image = allPictures[indexPath.row][@"image"];
+   
+    
 }
 
 /*
