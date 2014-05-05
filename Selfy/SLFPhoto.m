@@ -10,7 +10,7 @@
 
 #import <Parse/Parse.h>
 
-@interface SLFPhoto () <UITextViewDelegate>
+@interface SLFPhoto () <UITextViewDelegate,UIImagePickerControllerDelegate>
 
 @end
 
@@ -50,7 +50,7 @@
         
         newPicture = [[UIImageView alloc]initWithFrame:CGRectMake(20, 50, SCREEN_WIDTH-40, SCREEN_WIDTH-80)];
         [newPicture setContentMode:UIViewContentModeScaleAspectFit];
-        newPicture.image = [UIImage imageNamed:@"Calvin"];
+        newPicture.image = [UIImage imageNamed:@"Sunset"];
         newPicture.backgroundColor = [UIColor whiteColor];
         [[newPicture layer] setBorderWidth:2.0];
         [[newPicture layer] setBorderColor:[UIColor colorWithRed:16/255.0f green:237/255.0f blue:13/255.0f alpha:1.0f].CGColor];
@@ -104,6 +104,11 @@
     UIBarButtonItem * cancelNewSelfyButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(cancelNewSelfy)];
     cancelNewSelfyButton.tintColor = PURPLE_COLOR;
     self.navigationItem.rightBarButtonItem = cancelNewSelfyButton;
+//    [self setNeedsStatusBarAppearanceUpdate];
+    
+    UIBarButtonItem * loadPictureButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(loadPicture)];
+    loadPictureButton.tintColor = PURPLE_COLOR;
+    self.navigationItem.leftBarButtonItem = loadPictureButton;
     [self setNeedsStatusBarAppearanceUpdate];
 }
 
@@ -112,6 +117,25 @@
     [self.navigationController dismissViewControllerAnimated:YES completion:^{
         
     }];
+}
+
+-(void)loadPicture
+{
+    UIImagePickerController * photos = [[UIImagePickerController alloc]init];
+    
+    photos.delegate = self;
+    //    photos.allowsEditing = YES;
+    
+    [self presentViewController: photos animated:YES completion:^{
+        nil;
+    }];
+}
+
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    newPicture.image = info[UIImagePickerControllerOriginalImage];
+    
+    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -144,7 +168,7 @@
 -(void)textViewDidBeginEditing:(UITextView *)textView
 {
     [UIView animateWithDuration:0.2 animations:^{
-        newForm.frame = CGRectMake(0, -KB_HEIGHT, SCREEN_WIDTH, self.view.frame.size.height);
+        newForm.frame = CGRectMake(0, -(SCREEN_HEIGHT -(SCREEN_WIDTH+100)), SCREEN_WIDTH, self.view.frame.size.height);
     }];
 }
 

@@ -10,6 +10,6 @@
 
 @interface PhotoEditor : UIViewController
 
-@property UIImageView * pictureToEdit;
+@property(nonatomic)UIImage * imageViewPicture;
 
 @end

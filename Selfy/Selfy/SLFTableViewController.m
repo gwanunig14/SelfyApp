@@ -34,6 +34,8 @@
 
     UIButton * settings;
     UIButton * newUser;
+    
+    UIImage * newPicture;
 }
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -184,23 +186,28 @@
     
     PFFile * imageFile = [allPictures[indexPath.row] objectForKey:@"image"];
     
-    NSLog(@"%@",imageFile);
-    
     [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
         
         UIImage * image = [UIImage imageWithData:data];
-        image = selfyEditor.pictureToEdit.image;
+        selfyEditor.imageViewPicture = image;
+        
     } progressBlock:^(int percentDone) {
         
-        NSLog(@"%@",selfyEditor.pictureToEdit.image);
+        //do something
         
-        UINavigationController * nc = [[UINavigationController alloc] initWithRootViewController:selfyEditor];
-        
-        nc.navigationBar.barTintColor = MAGENTA_COLOR;
-        nc.navigationBar.translucent = NO;
-        
-        [self.navigationController presentViewController:nc animated:YES completion:^{
-        }];
+    }];
+
+    
+//    selfyEditor.imageViewPicture = edittablePicture;
+    
+//    NSLog(@"%@", edittablePicture);
+    
+    UINavigationController * nc = [[UINavigationController alloc] initWithRootViewController:selfyEditor];
+    
+    nc.navigationBar.barTintColor = MAGENTA_COLOR;
+    nc.navigationBar.translucent = NO;
+    
+    [self.navigationController presentViewController:nc animated:YES completion:^{
     }];
     
 //    NSLog(@"%@",allPictures[indexPath.row][@"image"]);
