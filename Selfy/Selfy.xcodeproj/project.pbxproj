@@ -51,8 +51,8 @@
 		9CA70A121906BDA30024E474 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CA70A111906BDA30024E474 /* StoreKit.framework */; };
 		9CA70A181906DBA00024E474 /* SLFStartUp.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CA70A171906DBA00024E474 /* SLFStartUp.m */; };
 		9CA70A1B1906E0C90024E474 /* SLFPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CA70A1A1906E0C90024E474 /* SLFPhoto.m */; };
-		9CD8B78619112E7100D1F002 /* SLFSettingsMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CD8B78519112E7100D1F002 /* SLFSettingsMenu.m */; };
-		9CD8B78919112E8D00D1F002 /* SLFSettingsButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CD8B78819112E8D00D1F002 /* SLFSettingsButton.m */; };
+		9CD8B78619112E7100D1F002 /* SYBSettingsMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CD8B78519112E7100D1F002 /* SYBSettingsMenu.m */; };
+		9CD8B78919112E8D00D1F002 /* SYBSettingsButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CD8B78819112E8D00D1F002 /* SYBSettingsButton.m */; };
 		9CEAF6F6191575D200E4CEBA /* PPAFilterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CEAF6F5191575D200E4CEBA /* PPAFilterController.m */; };
 		9CEAF6F91915789800E4CEBA /* PhotoEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CEAF6F81915789800E4CEBA /* PhotoEditor.m */; };
 		9CF93ED6190E914800AD523D /* Calvin.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CF93ED5190E914800AD523D /* Calvin.png */; };
@@ -122,10 +122,10 @@
 		9CA70A171906DBA00024E474 /* SLFStartUp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLFStartUp.m; sourceTree = "<group>"; };
 		9CA70A191906E0C90024E474 /* SLFPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLFPhoto.h; sourceTree = "<group>"; };
 		9CA70A1A1906E0C90024E474 /* SLFPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLFPhoto.m; sourceTree = "<group>"; };
-		9CD8B78419112E7100D1F002 /* SLFSettingsMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLFSettingsMenu.h; sourceTree = "<group>"; };
-		9CD8B78519112E7100D1F002 /* SLFSettingsMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLFSettingsMenu.m; sourceTree = "<group>"; };
-		9CD8B78719112E8D00D1F002 /* SLFSettingsButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLFSettingsButton.h; sourceTree = "<group>"; };
-		9CD8B78819112E8D00D1F002 /* SLFSettingsButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLFSettingsButton.m; sourceTree = "<group>"; };
+		9CD8B78419112E7100D1F002 /* SYBSettingsMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYBSettingsMenu.h; sourceTree = "<group>"; };
+		9CD8B78519112E7100D1F002 /* SYBSettingsMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYBSettingsMenu.m; sourceTree = "<group>"; };
+		9CD8B78719112E8D00D1F002 /* SYBSettingsButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYBSettingsButton.h; sourceTree = "<group>"; };
+		9CD8B78819112E8D00D1F002 /* SYBSettingsButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYBSettingsButton.m; sourceTree = "<group>"; };
 		9CEAF6F4191575D200E4CEBA /* PPAFilterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PPAFilterController.h; path = "../../Documents/The Iron Yard/iOS-Projects/Pull Pic/PPAFilterController.h"; sourceTree = "<group>"; };
 		9CEAF6F5191575D200E4CEBA /* PPAFilterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PPAFilterController.m; path = "../../Documents/The Iron Yard/iOS-Projects/Pull Pic/PPAFilterController.m"; sourceTree = "<group>"; };
 		9CEAF6F71915789800E4CEBA /* PhotoEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoEditor.h; sourceTree = "<group>"; };
@@ -174,10 +174,10 @@
 				9CEAF6F81915789800E4CEBA /* PhotoEditor.m */,
 				9CEAF6F4191575D200E4CEBA /* PPAFilterController.h */,
 				9CEAF6F5191575D200E4CEBA /* PPAFilterController.m */,
-				9CD8B78719112E8D00D1F002 /* SLFSettingsButton.h */,
-				9CD8B78819112E8D00D1F002 /* SLFSettingsButton.m */,
-				9CD8B78419112E7100D1F002 /* SLFSettingsMenu.h */,
-				9CD8B78519112E7100D1F002 /* SLFSettingsMenu.m */,
+				9CD8B78719112E8D00D1F002 /* SYBSettingsButton.h */,
+				9CD8B78819112E8D00D1F002 /* SYBSettingsButton.m */,
+				9CD8B78419112E7100D1F002 /* SYBSettingsMenu.h */,
+				9CD8B78519112E7100D1F002 /* SYBSettingsMenu.m */,
 				9CA709FC19059DA20024E474 /* SLFTableViewCell.h */,
 				9CA709FD19059DA20024E474 /* SLFTableViewCell.m */,
 				9CA709D6190588BC0024E474 /* SLFTableViewController.h */,
@@ -407,14 +407,14 @@
 			files = (
 				9CA70A1B1906E0C90024E474 /* SLFPhoto.m in Sources */,
 				9CA709B8190588550024E474 /* SLFAppDelegate.m in Sources */,
-				9CD8B78919112E8D00D1F002 /* SLFSettingsButton.m in Sources */,
+				9CD8B78919112E8D00D1F002 /* SYBSettingsButton.m in Sources */,
 				9C014EED190FDD11004FD659 /* SLFSignUpViewController.m in Sources */,
 				9CA70A181906DBA00024E474 /* SLFStartUp.m in Sources */,
 				9CA709FE19059DA20024E474 /* SLFTableViewCell.m in Sources */,
 				9CA709B4190588550024E474 /* main.m in Sources */,
 				9CEAF6F91915789800E4CEBA /* PhotoEditor.m in Sources */,
 				9CA709D8190588BC0024E474 /* SLFTableViewController.m in Sources */,
-				9CD8B78619112E7100D1F002 /* SLFSettingsMenu.m in Sources */,
+				9CD8B78619112E7100D1F002 /* SYBSettingsMenu.m in Sources */,
 				9CEAF6F6191575D200E4CEBA /* PPAFilterController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

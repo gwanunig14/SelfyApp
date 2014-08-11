@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SLFSettingsButton : UIButton
+@interface SYBSettingsButton : UIButton
 
 @property (nonatomic, getter = isToggled) BOOL toggled;
 
